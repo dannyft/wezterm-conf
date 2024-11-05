@@ -39,22 +39,29 @@ config.window_padding = {
 local key = {}
 if wezterm.target_triple == "aarch64-apple-darwin" then
   key.ctrl = "CMD"
+  key.ctrs = "CMD|SHIFT"
   key.alt  = "ALT"
   key.ledr = "LEADER"
 else 
   key.ctrl = "CTRL"
+  key.ctrs = "CTRL|SHIFT"
   key.alt  = "ALT"
   key.ledr = "LEADER"
 end
 
-config.leader = { key = "p", mods = "SUPER", timeout_milliseconds = 2000 }
+if wezterm.target_triple == "aarch64-apple-darwin" then
+  config.leader = { key = "p", mods = "SUPER", timeout_milliseconds = 2000 }
+else
+  config.leader = { key = "p", mods = "CTRL", timeout_milliseconds = 2000 }
+end
+
 config.keys = {
     { mods = key.ctrl, key = "t",          action = act.SpawnTab "CurrentPaneDomain" },
     { mods = key.ledr, key = "n",          action = act.SpawnTab "CurrentPaneDomain" },
     { mods = key.ledr, key = "x",          action = act.CloseCurrentPane { confirm = true } },
     { mods = key.alt,  key = "LeftArrow",  action = act.ActivateTabRelative(-1) },
     { mods = key.alt,  key = "RightArrow", action = act.ActivateTabRelative(1) },
-    { mods = key.ledr, key = "§",          action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+    { mods = key.ledr, key = "`",          action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
     { mods = key.ledr, key = "-",          action = act.SplitVertical { domain = "CurrentPaneDomain" } },
     { mods = key.ctrl, key = "LeftArrow",  action = act.ActivatePaneDirection "Left" },
     { mods = key.ctrl, key = "DownArrow",  action = act.ActivatePaneDirection "Down" },
@@ -64,7 +71,7 @@ config.keys = {
     { mods = key.ledr, key = "RightArrow", action = act.AdjustPaneSize { "Right", 5 } },
     { mods = key.ledr, key = "DownArrow",  action = act.AdjustPaneSize { "Down", 5 } },
     { mods = key.ledr, key = "UpArrow",    action = act.AdjustPaneSize { "Up", 5 } },
-    { mods = key.ctrl, key = "c",          action = act.CopyTo "Clipboard" },
+    { mods = key.ctrs, key = "c",          action = act.CopyTo "Clipboard" },
     { mods = key.ctrl, key = "v",          action = act.PasteFrom "Clipboard" },
     { mods = key.ledr, key = "f",          action = act.Search "CurrentSelectionOrEmptyString" },
     { mods = key.ledr, key = "c",          action = act.ClearScrollback "ScrollbackOnly" },
