@@ -8,7 +8,7 @@ end
 
 --config.font = wezterm.font 'Fira Code'
 config.font_size = 16.0
-config.color_scheme = 'Catppuccin Mocha'
+--config.color_scheme = 'Catppuccin Mocha'
 config.colors = {
   background = "11111b",
   tab_bar = {
