@@ -26,6 +26,7 @@ config.hide_tab_bar_if_only_one_tab = false
 config.use_fancy_tab_bar = false
 config.tab_max_width = 25
 config.show_tab_index_in_tab_bar = false
+config.tab_bar_at_bottom = true
 config.switch_to_last_active_tab_when_closing_tab = true
 config.window_close_confirmation = 'NeverPrompt'
 
@@ -80,6 +81,16 @@ config.keys = {
     { mods = key.ledr, key = "Enter",      action = act.ActivateCopyMode },
 }
 
+local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
+bar.apply_to_config(config, {
+  modules = {
+    username = { enabled = false },
+    hostname = { enabled = false },
+    cws      = { enabled = false },
+  }
+})
+
+--[[
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 tabline.setup({ 
   options = {
@@ -121,5 +132,7 @@ tabline.setup({
   },
   extensions = {},
 })
+]]
+
 
 return config
