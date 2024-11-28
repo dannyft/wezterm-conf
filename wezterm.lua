@@ -79,6 +79,16 @@ config.keys = {
     { mods = key.ledr, key = " ",          action = act.ActivateCommandPalette },
     { mods = key.ledr, key = "?",          action = act.ActivateKeyTable { name = "help_mode", one_shot = true } },
     { mods = key.ledr, key = "Enter",      action = act.ActivateCopyMode },
+    { mods = key.ledr, key = "t",          action = act.ShowTabNavigator },
+    { mods = key.ledr, key = "r",          action = act.PromptInputLine({
+        description = "Enter new name for tab",
+        action = wezterm.action_callback(function (window, _, line)
+          if line then
+            window:active_tab():set_title(line)
+          end
+        end),
+      }),
+    },
 }
 
 local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
@@ -89,50 +99,5 @@ bar.apply_to_config(config, {
     cws      = { enabled = false },
   }
 })
-
---[[
-local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-tabline.setup({ 
-  options = {
-    icons_enabled = true,
-    theme = 'Catppuccin Mocha',
-    color_overrides = {
-      tab = {
-        new_tab = { bg = "#11111b" },
-      }
-    },
-    section_separators = {
-      left = wezterm.nerdfonts.ple_upper_left_triangle, --pl_left_hard_divider,
-      right = wezterm.nerdfonts.ple_upper_right_triangle, --pl_right_hard_divider,
-    },
-    component_separators = {
-      left = wezterm.nerdfonts.ple_forwardslash_separator_redundant, --pl_left_soft,
-      right = wezterm.nerdfonts.ple_backslash_separator_redundant, --pl_right_soft_divider,
-    },
-    tab_separators = {
-      left = wezterm.nerdfonts.ple_lower_left_triangle,
-      right = wezterm.nerdfonts.ple_lower_right_triangle,
-    },
-  },
-  sections = {
-    tabline_a = { 'mode' },
-    tabline_b = { 'workspace' },
-    tabline_c = { ' ' },
-    tab_active = {
-      'index',
-      { 'parent', padding = 0 },
-      '/',
-      { 'cwd', padding = { left = 0, right = 1 } },
-      { 'zoomed', padding = 0 },
-    },
-    tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
-    tabline_x = { },
-    tabline_y = { 'datetime', 'battery' },
-    tabline_z = { 'hostname' },
-  },
-  extensions = {},
-})
-]]
-
 
 return config
