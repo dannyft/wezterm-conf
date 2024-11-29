@@ -158,12 +158,13 @@ end)
 
 wezterm.on("update-status", function(window, pane)
   local edge_background = '#11111b'
-  local background = '#91d7e3'
-  local foreground = '#1e2030'
+  local background = '#24273a'
+  local foreground = '#91d7e3'
   local edge_foreground = background
 
   if window:leader_is_active() then
     background = "#a6da95"
+    foreground = '#1e2030'
     edge_foreground = background
   end
 
@@ -187,10 +188,9 @@ wezterm.on("update-status", function(window, pane)
   window:set_left_status(wezterm.format(left_cells))
 
   edge_background = '#11111b'
-  edge_foreground = '#8aadf4'
-  background = '#8aadf4'
-  foreground = '#1e2030'
-
+  edge_foreground = '#11111b'
+  background = '#11111b'
+  foreground = '#8aadf4'
 
   local right_cells = {
     { Background = { Color = edge_background } },
