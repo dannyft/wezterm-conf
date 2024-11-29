@@ -97,31 +97,38 @@ config.keys = {
 local SOLID_LEFT_ARROW = wezterm.nerdfonts.ple_left_half_circle_thick
 local SOLID_RIGHT_ARROW = wezterm.nerdfonts.ple_right_half_circle_thick
 
+function cutstr(str, len)
+  if string.len(str) > len then
+    return string.sub(str, len - 3) .. "..."
+  end
+  return str
+end
+
 function tab_title(tab_info)
   local title = tab_info.tab_title
   if title and #title > 0 then
-    return title
+    return cutstr(title, 20)
   end
-  return tab_info.active_pane.title
+  return cutstr(tab_info.active_pane.title, 20)
 end
 
 wezterm.on('format-tab-title', function(tab, tabs, panes, cfg, hover, max_width)
   local edge_background = '#11111b'
   local background = '#24273a'
-  local foreground = '#cad3f5'
+  local foreground = '#5b6078'
   local index_fg = "#1e2030"
-  local index_bg = "#f5a97f"
+  local index_bg = "#363a4f"
 
   if tab.is_active then
-    background = '#f5a97f'
-    foreground = '#1e2030'
+    -- background = '#f5a97f'
+    foreground = '#cad3f5'
     index_fg = "#1e2030"
     index_bg = "#f5a97f"
   elseif hover then
     background = '#24273a'
     foreground = '#cad3f5'
     index_fg = "#1e2030"
-    index_bg = "#ffffff"
+    index_bg = "#5b6078"
   end
 
   local edge_foreground = index_bg
@@ -147,14 +154,18 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, cfg, hover, max_width)
     { Text = SOLID_RIGHT_ARROW },
     { Text = " " },
   }
-end
-)
+end)
 
 wezterm.on("update-status", function(window, pane)
   local edge_background = '#11111b'
-  local edge_foreground = '#a6da95'
-  local background = '#a6da95'
+  local background = '#91d7e3'
   local foreground = '#1e2030'
+  local edge_foreground = background
+
+  if window:leader_is_active() then
+    background = "#a6da95"
+    edge_foreground = background
+  end
 
   local left_cells = {
     -- { Text = " " },
