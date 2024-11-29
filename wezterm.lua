@@ -106,9 +106,11 @@ function tab_title(tab_info)
 end
 
 wezterm.on('format-tab-title', function(tab, tabs, panes, cfg, hover, max_width)
-  local edge_background = '#0b0022'
+  local edge_background = '#11111b'
   local background = '#24273a'
   local foreground = '#cad3f5'
+  local index_fg = "#1e2030"
+  local index_bg = "#f5a97f"
 
   if tab.is_active then
     background = '#f5a97f'
@@ -149,7 +151,7 @@ end
 )
 
 wezterm.on("update-status", function(window, pane)
-  local edge_background = '#0b0022'
+  local edge_background = '#11111b'
   local edge_foreground = '#a6da95'
   local background = '#a6da95'
   local foreground = '#1e2030'
@@ -173,7 +175,7 @@ wezterm.on("update-status", function(window, pane)
 
   window:set_left_status(wezterm.format(left_cells))
 
-  edge_background = '#0b0022'
+  edge_background = '#11111b'
   edge_foreground = '#8aadf4'
   background = '#8aadf4'
   foreground = '#1e2030'
